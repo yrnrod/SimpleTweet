@@ -175,17 +175,6 @@ public class TimelineActivity extends AppCompatActivity {
                     adapter.addAll(tweetsFromNetwork);
                     //Now we call setRefreshing(false) to signal refresh has finished
                     swipeContainer.setRefreshing(false);
-                    AsyncTask.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.i(TAG, "Showing data from database");
-                            //insert users first
-                            List<User> usersFromNetwork = User.fromJsonTweetArray(tweetsFromNetwork);
-                            tweetDao.insertModel(usersFromNetwork.toArray(new User[0]));
-                            //insert tweets next
-                           tweetDao.insertModel(tweetsFromNetwork.toArray(new Tweet[0]));
-                        }
-                    });
                 } catch (JSONException e) {
                     Log.e(TAG, "Json exception", e);
                 }
